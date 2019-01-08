@@ -1,5 +1,22 @@
+<script>
+export default {
+  data: () => ({
+    beanAmount: 20
+  })
+}
+</script>
+
+<style lang="css" scoped>
+.wrap {
+  color: #666;
+}
+.table {
+  margin-top: 60px;
+  color: #333;
+}
+</style>
 <template>
-  <div>
+  <div class="wrap">
     <ol>
       <li>ペーパーを湯通しする</li>
       <li>総湯量を40%と60%に分けて淹れる</li>
@@ -9,7 +26,6 @@
     <input type="text" v-model="beanAmount" />g
     </div>
     <div>
-      <p>{{ beanAmount }}</p>
       <table class="table">
         <thead>
           <th>
@@ -22,7 +38,7 @@
         <tbody>
           <tr>
             <td>0秒</td>
-            <td>{{ beanAmount * 2.5 }} ml</td>
+            <td class="blue">{{ beanAmount * 2.5 }} ml</td>
           </tr>
           <tr>
             <td>45秒</td>
@@ -51,10 +67,3 @@
   </div>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    beanAmount: 20
-  }),
-}
-</script>
