@@ -3,7 +3,7 @@
   "description": "caluclator to make coffee.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack"
   },
   "dependencies": {
     "gh-pages": "^1.2.0",
