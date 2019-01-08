@@ -1,0 +1,20 @@
+{
+  "name": "coffee46method",
+  "description": "caluclator to make coffee.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+    "gh-pages": "^1.2.0",
+    "vue": "^2.5.17"
+  },
+  "devDependencies": {
+    "vue-loader": "^15.4.1",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
+  }
+}
