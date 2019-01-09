@@ -180,8 +180,9 @@ body {
 }
 
 .wrap {
-  max-width: 600px;
+  max-width: 400px;
   padding: 30px 15px;
+  margin: 0 auto;
 }
 
 .number {
