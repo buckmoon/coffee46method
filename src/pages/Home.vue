@@ -3,29 +3,22 @@ export default {
   data: () => ({
     beanAmount: 20
   })
-}
+};
 </script>
 
-<style lang="css" scoped>
-.wrap {
-  color: #666;
-}
-.table {
-  margin-top: 60px;
-  color: #333;
-}
-</style>
 <template>
   <div class="wrap">
-    <ol>
-      <li>ペーパーを湯通しする</li>
-      <li>総湯量を40%と60%に分けて淹れる</li>
-    </ol>
-    <div>
-    豆の量（グラム）
-    <input type="text" v-model="beanAmount" />g
+    <div class="page-title">
+      4:6 methodCalc
     </div>
-    <div>
+    <div class="coffee-setup">
+      <div class="title">豆の量</div>
+      <div class="form">
+        <input type="text" v-model="beanAmount" />
+      </div>
+      <div class="unit number">g</div>
+    </div>
+    <div class="coffee-steps">
       <table class="table">
         <thead>
           <th>
@@ -36,29 +29,59 @@ export default {
           </th>
         </thead>
         <tbody>
-          <tr>
-            <td>0秒</td>
-            <td class="blue">{{ beanAmount * 2.5 }} ml</td>
+          <tr class="start">
+            <td><span class="number">0</span>秒</td>
+            <td><span class="number">{{ beanAmount * 2.5 }} ml</span></td>
+          </tr>
+          <tr class="end sep">
+            <td><span class="number">45</span>秒</td>
+            <td><span class="number">{{ beanAmount * 6 }} ml</span></td>
+          </tr>
+          <tr class="start">
+            <td><span class="number">1</span>分<span class="number">30</span>秒</td>
+            <td><span class="number">{{ beanAmount * 9 }} ml</span></td>
           </tr>
           <tr>
-            <td>45秒</td>
-            <td>{{ beanAmount * 6 }} ml</td>
+            <td><span class="number">2</span>分<span class="number">10</span>秒</td>
+            <td><span class="number">{{ beanAmount * 12 }} ml</span></td>
           </tr>
           <tr>
-            <td>1分30秒</td>
-            <td>{{ beanAmount * 9 }} ml</td>
+            <td><span class="number">2</span>分<span class="number">45</span>秒</td>
+            <td><span class="number">{{ beanAmount * 15 }} ml</span></td>
           </tr>
-          <tr>
-            <td>2分10秒</td>
-            <td>{{ beanAmount * 12 }} ml</td>
-          </tr>
-          <tr>
-            <td>2分45秒</td>
-            <td>{{ beanAmount * 15 }} ml</td>
-          </tr>
-          <tr>
-            <td>3分30秒</td>
+          <tr class="end">
+            <td><span class="number">3</span>分<span class="number">30</span>秒</td>
             <td>ドリッパーを外す</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="coffee-steps coffee-information">
+      <table class="center">
+        <tbody>
+          <tr class="sep">
+            <td colspan="3">お湯の温度</td>
+          </tr>
+          <tr class="start end">
+            <td class="sep">
+              浅煎り
+              <div class="od">
+                <span class="number">93</span>℃
+              </div>
+            </td>
+            <td class="sep">
+              中煎り
+              <div class="od">
+                <span class="number">88</span>℃
+              </div>
+            </td>
+            <td>
+              深煎り
+              <div class="od">
+                <span class="number">83</span>℃
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -66,4 +89,3 @@ export default {
     <!-- <router-link to="/about">Go to About page.</router-link> -->
   </div>
 </template>
-
