@@ -14,7 +14,7 @@ export default {
     <div class="coffee-setup">
       <div class="title">豆の量</div>
       <div class="form">
-        <input type="number" v-model="beanAmount" />
+        <input type="number" v-model="beanAmount"  pattern="\d*" />
       </div>
       <div class="unit number">g</div>
     </div>
