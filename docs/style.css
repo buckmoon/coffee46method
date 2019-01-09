@@ -177,11 +177,13 @@ body {
   color: #fff;
   font-size: 15px;
   letter-spacing: 0.05em;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI",
+    sans-serif;
 }
 
 .wrap {
   max-width: 400px;
-  padding: 30px 15px;
+  padding: 30px 20px;
   margin: 0 auto;
 }
 
@@ -218,7 +220,7 @@ body {
   background: transparent;
   font-family: "Oswald", sans-serif;
   border: 0;
-  border-bottom: 2px dashed #fff;
+  border-bottom: 1px dashed #ccc;
   outline: none;
   padding: 4px 15px 0 4px;
   color: #fbff7a;
@@ -260,12 +262,16 @@ body {
 }
 
 .coffee-steps td {
-  padding: 6px 15px;
+  padding: 4px 15px;
   text-align: left;
 }
 
 .coffee-steps .sep td {
   border-bottom: 1px solid #ccc;
+}
+
+.coffee-steps .large-text td {
+  font-size: 18px;
 }
 
 .coffee-steps td.sep {
@@ -287,4 +293,25 @@ body {
 .od {
   font-size: 18px;
   margin-top: 4px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.footer .copyright img {
+  width: 180px;
+}
+
+.footer .quote {
+  line-height: 1.5;
+  font-size: 12px;
+  color: #ccc;
+  margin-top: 11px;
+}
+
+.footer .quote a {
+  color: #ccc;
+  text-decoration: underline;
 }

@@ -28,7 +28,7 @@ export default {
             累積注湯量
           </th>
         </thead>
-        <tbody>
+        <tbody class="large-text">
           <tr class="start">
             <td><span class="number">0</span>秒</td>
             <td><span class="number">{{ beanAmount * 2.5 }} ml</span></td>
@@ -51,7 +51,7 @@ export default {
           </tr>
           <tr class="end">
             <td><span class="number">3</span>分<span class="number">30</span>秒</td>
-            <td>ドリッパーを外す</td>
+            <td><span style="font-size:17px;">ドリッパーを外す</span></td>
           </tr>
         </tbody>
       </table>
@@ -85,6 +85,14 @@ export default {
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="footer">
+      <div class="copyright">
+        <a href="https://www.buckmoon.co.jp/">
+          <img src="buckmoon-typo-white.png" alt="buckmoon">
+        </a>
+      </div>
+      <div class="quote">このシミュレーターは、バリスタ世界チャンピオン・粕谷哲さんの<a href="https://www.buzzfeed.com/jp/koumibaisen/coffee-lesson">&nbsp;4:6 method</a>&nbsp;を参考に作成しています。</div>
     </div>
     <!-- <router-link to="/about">Go to About page.</router-link> -->
   </div>
