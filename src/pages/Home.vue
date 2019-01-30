@@ -7,8 +7,8 @@ export default {
       setIntervalPointer: null,
       status: "initialized" // "initialized", "running", "paused"
     },
-    //secondsToStep: [0, 45, 1 * 60 + 30, 2 * 60 + 10, 2 * 60 + 45, 3 * 60 + 30]
-    secondsToStep: [0, 10, 20, 30, 40, 50]
+    secondsToStep: [0, 45, 1 * 60 + 30, 2 * 60 + 10, 2 * 60 + 45, 3 * 60 + 30]
+    // secondsToStep: [0, 10, 20, 30, 40, 50]
   }),
   methods: {
     startTimer: function() {
@@ -93,11 +93,15 @@ export default {
       <div class="unit number">g</div>
     </div>
     <div class="coffee-timer">
-      <p id="time_indicator">{{ timer.value }}秒</p>
-      <button @click="startTimer" v-if="isTimerInitialized || isTimerPaused">TIMER START</button>
-      <button @click="pauseTimer" v-if="isTimerRunning">PAUSE</button>
-      <button @click="resetTimer" v-if="isTimerRunning">STOP AND RESET</button>
-      <p id="alert-next-step" v-if="shouldAlertNextStep">次の注湯タイミングまで{{ timeToNextStep }}秒</p>
+      <div class="message" id="alert-next-step" v-if="shouldAlertNextStep">NEXT {{ timeToNextStep }}秒</div>
+      <div class="contents">
+        <div class="time" id="time_indicator">{{ timer.value }}<span class="unit">秒</span></div>
+      </div>
+      <div class="action">
+        <div class="button start" @click="startTimer" v-if="isTimerInitialized || isTimerPaused">TIMER START</div>
+        <div class="button" @click="pauseTimer" v-if="isTimerRunning">PAUSE</div>
+        <div class="button" @click="resetTimer" v-if="isTimerPaused"> RESET</div>
+      </div>
     </div>
     <div class="coffee-steps">
       <table class="table">
@@ -204,9 +208,3 @@ export default {
     <!-- <router-link to="/about">Go to About page.</router-link> -->
   </div>
 </template>
-
-<style>
-.active {
-  color: red;
-}
-</style>
