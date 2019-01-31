@@ -77,6 +77,13 @@ export default {
     },
     nextStep: function() {
       return this.step + 1;
+    },
+    timerForText: function() {
+      const s = this.timer.value % 60;
+      const minutes = (this.timer.value - s) / 60;
+      const seconds_1  = s % 10;
+      const seconds_10 = (s - seconds_1) / 10;
+      return {"minutes": minutes, "seconds_10": seconds_10, "seconds_1": seconds_1};
     }
   }
 };
@@ -95,7 +102,8 @@ export default {
     <div class="coffee-timer">
       <div class="message" id="alert-next-step" v-if="shouldAlertNextStep">NEXT {{ timeToNextStep }}秒</div>
       <div class="contents">
-        <div class="time" id="time_indicator">{{ timer.value }}<span class="unit">秒</span></div>
+        <div class="time" id="time_indicator_minutes" v-if="timerForText.minutes > 0"><span class="number">{{ timerForText.minutes }}</span><span class="unit">分</span></div>
+        <div class="time" id="time_indicator_seconds"><span class="number">{{ timerForText.seconds_10 }}</span><span class="number">{{ timerForText.seconds_1 }}</span><span class="unit">秒</span></div>
       </div>
       <div class="action">
         <div class="button start" @click="startTimer" v-if="isTimerInitialized || isTimerPaused">TIMER START</div>

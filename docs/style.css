@@ -326,6 +326,11 @@ body {
 .coffee-timer .time{
   font-size: 32px;
   font-family: "Oswald", sans-serif;
+  display: inline-block;
+}
+.coffee-timer .time .number{
+  display: inline-block;
+  width: 18px;
 }
 .coffee-timer .time .unit{
   font-size: 20px
