@@ -331,6 +331,7 @@ body {
 .coffee-timer .time .number{
   display: inline-block;
   width: 18px;
+  text-align: right;
 }
 .coffee-timer .time .unit{
   font-size: 20px
