@@ -10,21 +10,20 @@ export default {
     title: pkg.name,
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description },
-      { name: 'apple-mobile-web-app-title', content: '4:6 Calc' },
-      { name: 'application-name', content: '4:6 Calc' },
-      { name: 'apple-mobile-web-app-capable', content: 'yes' },
       {
+        name: 'viewport',
+        content:
+          'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+      },
+      {
+        hid: 'description',
         name: 'description',
         content:
           'バリスタ世界チャンピオン・粕谷哲さんの考案したコーヒーの抽出方法 4:6 method で注水する量を手軽に計算できるシミュレーターです。'
       },
-      {
-        name: 'viewport',
-        content:
-          'width: device-width, initial-scale: 1, maximum-scale: 1, user-scalable: no'
-      },
+      { name: 'apple-mobile-web-app-title', content: '4:6 Calc' },
+      { name: 'application-name', content: '4:6 Calc' },
+      { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://46coffee.buckmoon.io/' },
       { property: 'og:title', content: 'Calculator for 4:6 method of coffee' },
