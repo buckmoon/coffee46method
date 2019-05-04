@@ -1,13 +1,22 @@
-# How to start.
-- git clone
-- `yarn add vue && yarn add -D webpack webpack-cli vue-loader vue-router vue-template-compiler css-loader`
-- change source.
-- `yarn build`
-- created public files in docs directory.
+# coffee46method
 
-# How to deploy.
-- push to master!
+> My flawless Nuxt.js project
 
-# Reference.
-- ref. https://qiita.com/teinen_qiita/items/04522a76c239e9998856
+## Build Setup
 
+``` bash
+# install dependencies
+$ npm install
+
+# serve with hot reload at localhost:3000
+$ npm run dev
+
+# build for production and launch server
+$ npm run build
+$ npm start
+
+# generate static project
+$ npm run generate
+```
+
+For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).

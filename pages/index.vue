@@ -1,92 +1,106 @@
 <script>
 export default {
+  head() {
+    return {
+      title: 'XXX',
+      meta: [
+        // `hid` は一意の識別子として使用されます。 `vmid` は動作しないので使わないでください。
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'バリスタ世界チャンピオン・粕谷哲さんの考案したコーヒーの抽出方法 4:6 method で注水する量を手軽に計算できるシミュレーターです。'
+        }
+      ]
+    }
+  },
   data: () => ({
     beanAmount: 20,
     timer: {
       value: 0,
       setIntervalPointer: null,
-      status: "initialized" // "initialized", "running", "paused"
+      status: 'initialized' // "initialized", "running", "paused"
     },
     secondsToStep: [0, 45, 1 * 60 + 30, 2 * 60 + 10, 2 * 60 + 45, 3 * 60 + 30]
     // secondsToStep: [0, 10, 20, 30, 40, 50]
   }),
   methods: {
     startTimer: function() {
-      const self = this;
+      const self = this
       this.timer.setIntervalPointer = setInterval(function() {
-        self.timer.value += 1;
-      }, 1000);
-      this.timer.status = "running";
+        self.timer.value += 1
+      }, 1000)
+      this.timer.status = 'running'
     },
     pauseTimer: function() {
-      clearInterval(this.timer.setIntervalPointer);
-      this.timer.status = "paused";
+      clearInterval(this.timer.setIntervalPointer)
+      this.timer.status = 'paused'
     },
     resetTimer: function() {
-      clearInterval(this.timer.setIntervalPointer);
-      this.timer.value = 0;
-      this.timer.status = "initialized";
+      clearInterval(this.timer.setIntervalPointer)
+      this.timer.value = 0
+      this.timer.status = 'initialized'
     }
   },
   computed: {
     isTimerRunning: function() {
-      return this.timer.status == "running";
+      return this.timer.status === 'running'
     },
     isTimerInitialized: function() {
-      return this.timer.status == "initialized";
+      return this.timer.status === 'initialized'
     },
     isTimerPaused: function() {
-      return this.timer.status == "paused";
+      return this.timer.status === 'paused'
     },
     isStep1: function() {
-      return this.step == 1;
+      return this.step === 1
     },
     isStep2: function() {
-      return this.step == 2;
+      return this.step === 2
     },
     isStep3: function() {
-      return this.step == 3;
+      return this.step === 3
     },
     isStep4: function() {
-      return this.step == 4;
+      return this.step === 4
     },
     isStep5: function() {
-      return this.step == 5;
+      return this.step === 5
     },
     isStep6: function() {
-      return this.step == 6;
+      return this.step === 6
     },
     step: function() {
-      if (this.timer.status == "initialized") return 0;
-      if (this.timer.value >= this.secondsToStep[5]) return 6;
-      if (this.timer.value >= this.secondsToStep[4]) return 5;
-      if (this.timer.value >= this.secondsToStep[3]) return 4;
-      if (this.timer.value >= this.secondsToStep[2]) return 3;
-      if (this.timer.value >= this.secondsToStep[1]) return 2;
-      return 1;
+      if (this.timer.status === 'initialized') return 0
+      if (this.timer.value >= this.secondsToStep[5]) return 6
+      if (this.timer.value >= this.secondsToStep[4]) return 5
+      if (this.timer.value >= this.secondsToStep[3]) return 4
+      if (this.timer.value >= this.secondsToStep[2]) return 3
+      if (this.timer.value >= this.secondsToStep[1]) return 2
+      return 1
     },
     shouldAlertNextStep: function() {
-      if (this.isTimerInitialized) return false;
-      if (this.timeToNextStep < 1) return false;
-      if (this.timeToNextStep <= 5) return true;
-      return false;
+      if (this.isTimerInitialized) return false
+      if (this.timeToNextStep < 1) return false
+      if (this.timeToNextStep <= 5) return true
+      return false
     },
     timeToNextStep: function() {
-      const nextStep = this.secondsToStep[this.step];
-      return nextStep - this.timer.value;
+      const nextStep = this.secondsToStep[this.step]
+      return nextStep - this.timer.value
     },
     nextStep: function() {
-      return this.step + 1;
+      return this.step + 1
     },
     timerForText: function() {
-      const s = this.timer.value % 60;
-      const minutes = (this.timer.value - s) / 60;
-      const seconds_1  = s % 10;
-      const seconds_10 = (s - seconds_1) / 10;
-      return {"minutes": minutes, "seconds_10": seconds_10, "seconds_1": seconds_1};
+      const s = this.timer.value % 60
+      const minutes = (this.timer.value - s) / 60
+      const seconds1 = s % 10
+      const seconds10 = (s - seconds1) / 10
+      return { minutes: minutes, seconds10: seconds10, seconds1: seconds1 }
     }
   }
-};
+}
 </script>
 
 <template>
@@ -100,15 +114,28 @@ export default {
       <div class="unit number">g</div>
     </div>
     <div class="coffee-timer">
-      <div class="message" id="alert-next-step" v-if="shouldAlertNextStep">NEXT {{ timeToNextStep }}秒</div>
+      <div id="alert-next-step" class="message" v-if="shouldAlertNextStep">
+        <span>NEXT {{ timeToNextStep }}秒</span>
+      </div>
       <div class="contents">
-        <div class="time" id="time_indicator_minutes" v-if="timerForText.minutes > 0"><span class="number">{{ timerForText.minutes }}</span><span class="unit">分</span></div>
-        <div class="time" id="time_indicator_seconds"><span class="number">{{ timerForText.seconds_10 }}</span><span class="number">{{ timerForText.seconds_1 }}</span><span class="unit">秒</span></div>
+        <div id="time_indicator_minutes" class="time" v-if="timerForText.minutes > 0">
+          <span class="number">{{ timerForText.minutes }}</span>
+          <span class="unit">分</span>
+        </div>
+        <div class="time" id="time_indicator_seconds">
+          <span class="number">{{ timerForText.seconds10 }}</span>
+          <span class="number">{{ timerForText.seconds1 }}</span>
+          <span class="unit">秒</span>
+        </div>
       </div>
       <div class="action">
-        <div class="button start" @click="startTimer" v-if="isTimerInitialized || isTimerPaused">TIMER START</div>
+        <div
+          class="button start"
+          @click="startTimer"
+          v-if="isTimerInitialized || isTimerPaused"
+        >TIMER START</div>
         <div class="button" @click="pauseTimer" v-if="isTimerRunning">PAUSE</div>
-        <div class="button" @click="resetTimer" v-if="isTimerPaused"> RESET</div>
+        <div class="button" @click="resetTimer" v-if="isTimerPaused">RESET</div>
       </div>
     </div>
     <div class="coffee-steps">
@@ -118,7 +145,7 @@ export default {
           <th>累積注湯量</th>
         </thead>
         <tbody class="large-text">
-          <tr class="start" v-bind:class="{active: isStep1}">
+          <tr class="start" v-bind:class="{ active: isStep1 }">
             <td>
               <span class="number">0</span>秒
             </td>
@@ -126,7 +153,7 @@ export default {
               <span class="number">{{ beanAmount * 2.5 }} ml</span>
             </td>
           </tr>
-          <tr class="end sep" v-bind:class="{active: isStep2}">
+          <tr class="end sep" v-bind:class="{ active: isStep2 }">
             <td>
               <span class="number">45</span>秒
             </td>
@@ -213,6 +240,5 @@ export default {
         >&nbsp;4:6 method</a>&nbsp;を参考に作成しています。
       </div>
     </div>
-    <!-- <router-link to="/about">Go to About page.</router-link> -->
   </div>
 </template>
