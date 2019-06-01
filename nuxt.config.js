@@ -132,7 +132,9 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    { src: '~/assets/css/main.sass', lang: 'sass' }
+  ],
 
   /*
    ** Plugins to load before mounting the App
@@ -143,12 +145,15 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    'nuxt-sass-resources-loader'
   ],
-  sassResources: ['@/assets/css/main.sass'],
+
+  // styleResources: {
+  //   sass: [
+  //     '~/assets/css/main.sass'
+  //   ]
+  // },
   /*
    ** Axios module configuration
    */
