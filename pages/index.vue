@@ -172,7 +172,7 @@ export default {
             </template>
           </div>
           <div class="bm-brewing-coffee-steps">
-            <div class="step" v-bind:class="{ active: isStep1 }">
+            <div class="step" :class="{ active: isStep1 }">
               <div class="icon">
                 <i class="mdi mdi-water"></i>
               </div>
@@ -183,7 +183,7 @@ export default {
                 {{ beanAmount * 2.5 }}ml
               </div>
             </div>
-            <div class="step" v-bind:class="{ active: isStep2 }">
+            <div class="step" :class="{ active: isStep2 }">
               <div class="icon">
                 <i class="mdi mdi-water"></i>
               </div>
@@ -194,7 +194,7 @@ export default {
                 {{ beanAmount * 6 }}ml
               </div>
             </div>
-            <div class="step" v-bind:class="{active: isStep3}">
+            <div class="step" :class="{active: isStep3}">
               <div class="icon">
                 <i class="mdi mdi-water"></i>
               </div>
@@ -205,7 +205,7 @@ export default {
                 {{ beanAmount * 9 }}ml
               </div>
             </div>
-            <div class="step" v-bind:class="{active: isStep4}">
+            <div class="step" :class="{active: isStep4}">
               <div class="icon">
                 <i class="mdi mdi-water"></i>
               </div>
@@ -216,7 +216,7 @@ export default {
                 {{ beanAmount * 12 }}ml
               </div>
             </div>
-            <div class="step" v-bind:class="{active: isStep5}">
+            <div class="step" :class="{active: isStep5}">
               <div class="icon">
                 <i class="mdi mdi-water"></i>
               </div>
@@ -227,7 +227,7 @@ export default {
                 {{ beanAmount * 15 }}ml
               </div>
             </div>
-            <div class="step" v-bind:class="{active: isStep6}">
+            <div class="step" :class="{active: isStep6}">
               <div class="icon">
                 <i class="mdi mdi-coffee"></i>
               </div>
