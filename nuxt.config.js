@@ -48,7 +48,11 @@ export default {
         href: 'https://46coffee.buckmoon.io/'
       },
       {
-        href: 'https://fonts.googleapis.com/css?family=Oswald:400',
+        href: 'https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600&display=swap',
+        rel: 'stylesheet'
+      },
+      {
+        href: 'https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css',
         rel: 'stylesheet'
       },
       {
