@@ -11,26 +11,6 @@ export default {
     secondsToStep: [0, 45, 1 * 60 + 30, 2 * 60 + 10, 2 * 60 + 45, 3 * 60 + 30]
     // secondsToStep: [0, 10, 20, 30, 40, 50]
   }),
-  methods: {
-    startTimer: function() {
-      const self = this
-      this.showingPage = 'BrewingCoffee'
-      this.timer.setIntervalPointer = setInterval(function() {
-        self.timer.value += 1
-      }, 1000)
-      this.timer.status = 'running'
-    },
-    pauseTimer: function() {
-      clearInterval(this.timer.setIntervalPointer)
-      this.timer.status = 'paused'
-    },
-    resetTimer: function() {
-      clearInterval(this.timer.setIntervalPointer)
-      this.showingPage = 'Setup'
-      this.timer.value = 0
-      this.timer.status = 'initialized'
-    }
-  },
   computed: {
     isTimerRunning: function() {
       return this.timer.status === 'running'
@@ -88,6 +68,26 @@ export default {
       const seconds10 = (s - seconds1) / 10
       return { minutes: minutes, seconds10: seconds10, seconds1: seconds1 }
     }
+  },
+  methods: {
+    startTimer: function() {
+      const self = this
+      this.showingPage = 'BrewingCoffee'
+      this.timer.setIntervalPointer = setInterval(function() {
+        self.timer.value += 1
+      }, 1000)
+      this.timer.status = 'running'
+    },
+    pauseTimer: function() {
+      clearInterval(this.timer.setIntervalPointer)
+      this.timer.status = 'paused'
+    },
+    resetTimer: function() {
+      clearInterval(this.timer.setIntervalPointer)
+      this.showingPage = 'Setup'
+      this.timer.value = 0
+      this.timer.status = 'initialized'
+    }
   }
 }
 </script>
@@ -102,11 +102,10 @@ export default {
             <div class="coffee-setup">
               <div class="description">何グラムの豆で抽出しますか？</div>
               <div class="form">
-                <input type="number" v-model="beanAmount" pattern="\d*" max="999" min="0">
+                <input v-model="beanAmount" type="number" pattern="\d*" max="999" min="0">
                 <div class="unit number">g</div>
               </div>
-
-              <div @click="startTimer" class="button">START</div>
+              <div class="button" @click="startTimer">START</div>
             </div>
           </div>
         </div>
@@ -144,29 +143,26 @@ export default {
           <div class="weight">50<span class="unit">ml</span></div>
           <div class="text">まで注水してください</div>
           <div class="separate"></div>
-          <div class="time" v-if="shouldAlertNextStep"><sapn class="text">NEXT</sapn>{{ timeToNextStep }}s
+          <div v-if="shouldAlertNextStep" class="time"><sapn class="text">NEXT</sapn>{{ timeToNextStep }}s
           </div>
           <div class="action">
-            <div
-            class="button start"
-            @click="startTimer"
-            v-if="isTimerInitialized || isTimerPaused"
-            ><i class="mdi mdi-play"></i></div>
-            <div class="button" @click="pauseTimer" v-if="isTimerRunning"><i class="mdi mdi-pause"></i></div>
+            <div v-if="isTimerInitialized || isTimerPaused" class="button start"
+            @click="startTimer"><i class="mdi mdi-play"></i></div>
+            <div v-if="isTimerRunning" class="button" @click="pauseTimer"><i class="mdi mdi-pause"></i></div>
           </div>
         </div>
 
         <div class="footer">
           <div class="bm-timer">
-            <template id="time_indicator_minutes" class="time" v-if="timerForText.minutes > 0">
+            <template v-if="timerForText.minutes > 0" id="time_indicator_minutes" class="time">
               <div class="number">{{ timerForText.minutes }}</div>
               <div class="unit">:</div>
             </template>
-            <template id="time_indicator_minutes" class="time" v-else>
+            <template v-else id="time_indicator_minutes" class="time">
               <div class="number">00</div>
               <div class="unit">:</div>
             </template>
-            <template class="time" id="time_indicator_seconds">
+            <template id="time_indicator_seconds" class="time">
               <div class="number">{{ timerForText.seconds10 }}</div>
               <div class="number">{{ timerForText.seconds1 }}</div>
             </template>
