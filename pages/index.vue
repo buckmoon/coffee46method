@@ -131,8 +131,8 @@ export default {
           <div class="title">
             <div class="name">4:6 Coffee Method</div>
             <div class="options">
-              <div class="option weight">{{beanAmount}}g</div>
-              <div class="option temperature">83-93℃</div>
+              <div class="option weight"><i class="mdi mdi-scale"></i> {{beanAmount}}g</div>
+              <div class="option temperature"><i class="mdi mdi-kettle"></i> 83-93℃</div>
             </div>
           </div>
           <div class="action" @click="resetTimer">
