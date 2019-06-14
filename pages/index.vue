@@ -8,10 +8,93 @@ export default {
       setIntervalPointer: null,
       status: 'initialized' // "initialized", "running", "paused"
     },
-    secondsToStep: [0, 45, 1 * 60 + 30, 2 * 60 + 10, 2 * 60 + 45, 3 * 60 + 30]
-    // secondsToStep: [0, 10, 20, 30, 40, 50]
+    brewData: {
+      method46: {
+        // steps: [
+        //   {
+        //     stepNumber: 1,
+        //     memo: '',
+        //     time: 0,
+        //     waterPerBean: 2.5
+        //   },
+        //   {
+        //     stepNumber: 2,
+        //     memo: '',
+        //     time: 45,
+        //     waterPerBean: 6
+        //   },
+        //   {
+        //     stepNumber: 3,
+        //     memo: '',
+        //     time: 1 * 60 + 30,
+        //     waterPerBean: 9
+        //   },
+        //   {
+        //     stepNumber: 4,
+        //     memo: '',
+        //     time: 2 * 60 + 10,
+        //     waterPerBean: 12
+        //   },
+        //   {
+        //     stepNumber: 5,
+        //     memo: '',
+        //     time: 2 * 60 + 45,
+        //     waterPerBean: 15
+        //   },
+        //   {
+        //     stepNumber: 6,
+        //     memo: '',
+        //     time: 3 * 60 + 30,
+        //     waterPerBean: -1,
+        //     lastStepFlg: true
+        //   }
+        // ]
+        steps: [
+          {
+            stepNumber: 1,
+            memo: '',
+            time: 0,
+            waterPerBean: 2.5
+          },
+          {
+            stepNumber: 2,
+            memo: '',
+            time: 3,
+            waterPerBean: 6
+          },
+          {
+            stepNumber: 3,
+            memo: '',
+            time: 6,
+            waterPerBean: 9
+          },
+          {
+            stepNumber: 4,
+            memo: '',
+            time: 9,
+            waterPerBean: 12
+          },
+          {
+            stepNumber: 5,
+            memo: '',
+            time: 12,
+            waterPerBean: 15
+          },
+          {
+            stepNumber: 6,
+            memo: '',
+            time: 15,
+            waterPerBean: 15,
+            lastStepFlg: true
+          }
+        ]
+      }
+    }
   }),
   computed: {
+    selectedBrewMethod: function() {
+      return this.brewData.method46
+    },
     isTimerRunning: function() {
       return this.timer.status === 'running'
     },
@@ -21,32 +104,28 @@ export default {
     isTimerPaused: function() {
       return this.timer.status === 'paused'
     },
-    isStep1: function() {
-      return this.step === 1
+    stepNumber: function() {
+      if (this.timer.status === 'initialized') return 1
+      const steps = this.selectedBrewMethod.steps
+      const lastStep = steps[steps.length - 1]
+      if (this.timer.value >= lastStep.time) return lastStep.stepNumber
+      const time = this.timer.value
+      const secondsBySteps = this.selectedBrewMethod.steps
+        .filter(step => {
+          return time >= step.time
+        })
+        .map(step => {
+          return step.stepNumber
+        })
+      // return secondsBySteps
+      return Math.max(...secondsBySteps)
     },
-    isStep2: function() {
-      return this.step === 2
+    stepNow: function() {
+      return this.selectedBrewMethod.steps[this.stepNumber - 1]
+      //return this.selectedBrewMethod.steps[this.stepNumber]
     },
-    isStep3: function() {
-      return this.step === 3
-    },
-    isStep4: function() {
-      return this.step === 4
-    },
-    isStep5: function() {
-      return this.step === 5
-    },
-    isStep6: function() {
-      return this.step === 6
-    },
-    step: function() {
-      if (this.timer.status === 'initialized') return 0
-      if (this.timer.value >= this.secondsToStep[5]) return 6
-      if (this.timer.value >= this.secondsToStep[4]) return 5
-      if (this.timer.value >= this.secondsToStep[3]) return 4
-      if (this.timer.value >= this.secondsToStep[2]) return 3
-      if (this.timer.value >= this.secondsToStep[1]) return 2
-      return 1
+    nextStep: function() {
+      return this.selectedBrewMethod.steps[this.stepNumber]
     },
     shouldAlertNextStep: function() {
       if (this.isTimerInitialized) return false
@@ -55,11 +134,14 @@ export default {
       return false
     },
     timeToNextStep: function() {
-      const nextStep = this.secondsToStep[this.step]
-      return nextStep - this.timer.value
+      if (this.nextStep) {
+        return this.nextStep.time - this.timer.value
+      } else {
+        return 0
+      }
     },
-    nextStep: function() {
-      return this.step + 1
+    nextStepNumber: function() {
+      return this.stepNumber + 1
     },
     timerForText: function() {
       const s = this.timer.value % 60
@@ -67,6 +149,9 @@ export default {
       const seconds1 = s % 10
       const seconds10 = (s - seconds1) / 10
       return { minutes: minutes, seconds10: seconds10, seconds1: seconds1 }
+    },
+    selectedSteps: function() {
+      return this.selectedBrewMethod.steps
     }
   },
   methods: {
@@ -118,7 +203,7 @@ export default {
           <div class="quote">
             このシミュレーターは、バリスタ世界チャンピオン・粕谷哲さんの
             <a
-            href="https://www.buzzfeed.com/jp/koumibaisen/coffee-lesson"
+              href="https://www.buzzfeed.com/jp/koumibaisen/coffee-lesson"
             >&nbsp;4:6 method</a>&nbsp;を参考に作成しています。
           </div>
         </div>
@@ -131,8 +216,13 @@ export default {
           <div class="title">
             <div class="name">4:6 Coffee Method</div>
             <div class="options">
-              <div class="option weight"><i class="mdi mdi-scale"></i> {{beanAmount}}g</div>
-              <div class="option temperature"><i class="mdi mdi-kettle"></i> 83-93℃</div>
+              <div class="option weight">
+                <i class="mdi mdi-scale"></i>
+                {{beanAmount}}g
+              </div>
+              <div class="option temperature">
+                <i class="mdi mdi-kettle"></i> 83-93℃
+              </div>
             </div>
           </div>
           <div class="action" @click="resetTimer">
@@ -140,15 +230,28 @@ export default {
           </div>
         </div>
         <div class="body bm-brewing-coffee-now">
-          <div class="weight">50<span class="unit">ml</span></div>
-          <div class="text">まで注水してください</div>
-          <div class="separate"></div>
-          <div v-if="shouldAlertNextStep" class="time"><sapn class="text">NEXT</sapn>{{ timeToNextStep }}s
+          <div class="weight">
+            {{ beanAmount * stepNow.waterPerBean }}
+            <span class="unit">ml</span>
           </div>
+          <div v-if="shouldAlertNextStep" class="text">まで注水してください</div>
+          <div class="separate"></div>
+          <div v-if="shouldAlertNextStep" class="time">
+            <span class="text">NEXT</span>
+            {{ timeToNextStep }}s
+          </div>
+          <div v-else>ドリッパーを外してください</div>
           <div class="action">
-            <div v-if="isTimerInitialized || isTimerPaused" class="button start"
-            @click="startTimer"><i class="mdi mdi-play"></i></div>
-            <div v-if="isTimerRunning" class="button" @click="pauseTimer"><i class="mdi mdi-pause"></i></div>
+            <div
+              v-if="isTimerInitialized || isTimerPaused"
+              class="button start"
+              @click="startTimer"
+            >
+              <i class="mdi mdi-play"></i>
+            </div>
+            <div v-if="isTimerRunning" class="button" @click="pauseTimer">
+              <i class="mdi mdi-pause"></i>
+            </div>
           </div>
         </div>
 
@@ -168,71 +271,19 @@ export default {
             </template>
           </div>
           <div class="bm-brewing-coffee-steps">
-            <div class="step" :class="{ active: isStep1 }">
+            <div
+              v-for="step in brewData.method46.steps"
+              v-bind:key="step.stepNumber"
+              :class="{ active: step.stepNumber == stepNumber }"
+              class="step"
+            >
               <div class="icon">
                 <i class="mdi mdi-water"></i>
               </div>
-              <div class="time">
-                0s
-              </div>
-              <div class="weight">
-                {{ beanAmount * 2.5 }}ml
-              </div>
-            </div>
-            <div class="step" :class="{ active: isStep2 }">
-              <div class="icon">
-                <i class="mdi mdi-water"></i>
-              </div>
-              <div class="time">
-                45s
-              </div>
-              <div class="weight">
-                {{ beanAmount * 6 }}ml
-              </div>
-            </div>
-            <div class="step" :class="{active: isStep3}">
-              <div class="icon">
-                <i class="mdi mdi-water"></i>
-              </div>
-              <div class="time">
-                1m30s
-              </div>
-              <div class="weight">
-                {{ beanAmount * 9 }}ml
-              </div>
-            </div>
-            <div class="step" :class="{active: isStep4}">
-              <div class="icon">
-                <i class="mdi mdi-water"></i>
-              </div>
-              <div class="time">
-                2m10s
-              </div>
-              <div class="weight">
-                {{ beanAmount * 12 }}ml
-              </div>
-            </div>
-            <div class="step" :class="{active: isStep5}">
-              <div class="icon">
-                <i class="mdi mdi-water"></i>
-              </div>
-              <div class="time">
-                2m45s
-              </div>
-              <div class="weight">
-                {{ beanAmount * 15 }}ml
-              </div>
-            </div>
-            <div class="step" :class="{active: isStep6}">
-              <div class="icon">
-                <i class="mdi mdi-coffee"></i>
-              </div>
-              <div class="time">
-                3m30s
-              </div>
-              <div class="weight">
-                END
-              </div>
+              <div class="time">{{ step.time }}s</div>
+              <div
+                class="weight"
+              >{{ step.lastStepFlg ? "END" : beanAmount * step.waterPerBean + "ml" }}</div>
             </div>
           </div>
         </div>
