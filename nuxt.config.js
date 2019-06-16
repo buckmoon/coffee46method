@@ -7,7 +7,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: pkg.name,
+    title: 'BREWING COFFEE STYLES',
     meta: [
       { charset: 'utf-8' },
       {
@@ -19,18 +19,18 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'バリスタ世界チャンピオン・粕谷哲さんの考案したコーヒーの抽出方法 4:6 method で注水する量を手軽に計算できるシミュレーターです。'
+          '様々なコーヒーの抽出方法の注水量・時間を測ることができるタイマーです。バリスタ世界チャンピオン・粕谷哲さんの考案したコーヒーの抽出方法 4:6 method を参考に作成しています。'
       },
       { name: 'apple-mobile-web-app-title', content: '4:6 Calc' },
       { name: 'application-name', content: '4:6 Calc' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://46coffee.buckmoon.io/' },
-      { property: 'og:title', content: 'Calculator for 4:6 method of coffee' },
+      { property: 'og:title', content: 'BREWING COFFEE STYLES' },
       {
         property: 'og:description',
         content:
-          'バリスタ世界チャンピオン・粕谷哲さんの考案したコーヒーの抽出方法 4:6 method で注水する量を手軽に計算できるシミュレーターです。'
+          '様々なコーヒーの抽出方法の注水量・時間を測ることができるタイマーです。バリスタ世界チャンピオン・粕谷哲さんの考案したコーヒーの抽出方法 4:6 method を参考に作成しています。'
       },
       { property: 'og:image', content: 'https://46coffee.buckmoon.io/fb.png' },
       { name: 'msapplication-TileColor', content: '#000000' },

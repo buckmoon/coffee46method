@@ -10,45 +10,6 @@ export default {
     },
     brewData: {
       method46: {
-        // steps: [
-        //   {
-        //     stepNumber: 1,
-        //     memo: '',
-        //     time: 0,
-        //     waterPerBean: 2.5
-        //   },
-        //   {
-        //     stepNumber: 2,
-        //     memo: '',
-        //     time: 45,
-        //     waterPerBean: 6
-        //   },
-        //   {
-        //     stepNumber: 3,
-        //     memo: '',
-        //     time: 1 * 60 + 30,
-        //     waterPerBean: 9
-        //   },
-        //   {
-        //     stepNumber: 4,
-        //     memo: '',
-        //     time: 2 * 60 + 10,
-        //     waterPerBean: 12
-        //   },
-        //   {
-        //     stepNumber: 5,
-        //     memo: '',
-        //     time: 2 * 60 + 45,
-        //     waterPerBean: 15
-        //   },
-        //   {
-        //     stepNumber: 6,
-        //     memo: '',
-        //     time: 3 * 60 + 30,
-        //     waterPerBean: -1,
-        //     lastStepFlg: true
-        //   }
-        // ]
         steps: [
           {
             stepNumber: 1,
@@ -59,35 +20,74 @@ export default {
           {
             stepNumber: 2,
             memo: '',
-            time: 3,
+            time: 45,
             waterPerBean: 6
           },
           {
             stepNumber: 3,
             memo: '',
-            time: 6,
+            time: 1 * 60 + 30,
             waterPerBean: 9
           },
           {
             stepNumber: 4,
             memo: '',
-            time: 9,
+            time: 2 * 60 + 10,
             waterPerBean: 12
           },
           {
             stepNumber: 5,
             memo: '',
-            time: 12,
+            time: 2 * 60 + 45,
             waterPerBean: 15
           },
           {
             stepNumber: 6,
             memo: '',
-            time: 15,
-            waterPerBean: 15,
+            time: 3 * 60 + 30,
+            waterPerBean: -1,
             lastStepFlg: true
           }
         ]
+        // steps: [
+        //   {
+        //     stepNumber: 1,
+        //     memo: '',
+        //     time: 0,
+        //     waterPerBean: 2.5
+        //   },
+        //   {
+        //     stepNumber: 2,
+        //     memo: '',
+        //     time: 3,
+        //     waterPerBean: 6
+        //   },
+        //   {
+        //     stepNumber: 3,
+        //     memo: '',
+        //     time: 6,
+        //     waterPerBean: 9
+        //   },
+        //   {
+        //     stepNumber: 4,
+        //     memo: '',
+        //     time: 9,
+        //     waterPerBean: 12
+        //   },
+        //   {
+        //     stepNumber: 5,
+        //     memo: '',
+        //     time: 12,
+        //     waterPerBean: 15
+        //   },
+        //   {
+        //     stepNumber: 6,
+        //     memo: '',
+        //     time: 15,
+        //     waterPerBean: 15,
+        //     lastStepFlg: true
+        //   }
+        // ]
       }
     }
   }),
@@ -183,12 +183,20 @@ export default {
       <div class="bm-brewing-coffee-setup">
         <div class="body">
           <div>
-            <div class="title">Brewing Coffee Styles</div>
+            <div class="title">BREWING<br>COFFEE STYLES</div>
             <div class="coffee-setup">
-              <div class="description">何グラムの豆で抽出しますか？</div>
               <div class="form">
-                <input v-model="beanAmount" type="number" pattern="\d*" max="999" min="0">
-                <div class="unit number">g</div>
+                <div class="filed">
+                  <label>豆の量</label>
+                  <input v-model="beanAmount" type="number" pattern="\d*" max="999" min="0" class="bm-form-control" data-format="$1 g">
+                  <div class="unit">g</div>
+                </div>
+                <div class="filed">
+                  <label>淹れ方</label>
+                  <select name="brewing-type" class="bm-form-control">
+                    <option value="46method">4:6 Method</option>
+                  </select>
+                </div>
               </div>
               <div class="button" @click="startTimer">START</div>
             </div>
@@ -201,7 +209,7 @@ export default {
             </a>
           </div>
           <div class="quote">
-            このシミュレーターは、バリスタ世界チャンピオン・粕谷哲さんの
+            バリスタ世界チャンピオン・粕谷哲さんの
             <a
               href="https://www.buzzfeed.com/jp/koumibaisen/coffee-lesson"
             >&nbsp;4:6 method</a>&nbsp;を参考に作成しています。
@@ -235,13 +243,16 @@ export default {
             <span class="unit">ml</span>
           </div>
           <div v-if="shouldAlertNextStep" class="text">まで注水してください</div>
+          <div v-if="!shouldAlertNextStep" class="text">ドリッパーを外してください</div>
           <div class="separate"></div>
           <div v-if="shouldAlertNextStep" class="time">
             <span class="text">NEXT</span>
             {{ timeToNextStep }}s
           </div>
-          <div v-else>ドリッパーを外してください</div>
-          <div class="action">
+          <div v-else class="time">
+            <span class="text">END</span>
+          </div>
+          <div v-if="shouldAlertNextStep" class="action">
             <div
               v-if="isTimerInitialized || isTimerPaused"
               class="button start"
@@ -273,7 +284,7 @@ export default {
           <div class="bm-brewing-coffee-steps">
             <div
               v-for="step in brewData.method46.steps"
-              v-bind:key="step.stepNumber"
+              :key="step.stepNumber"
               :class="{ active: step.stepNumber == stepNumber }"
               class="step"
             >

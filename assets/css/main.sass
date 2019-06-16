@@ -1,4 +1,5 @@
 $COLOR_PRIMARY: #FBFE7A
+$COLOR_WHITE: #FFF
 $FONT_FAMILY_BASE: "Oswald", sans-serif
 
 html,
@@ -199,54 +200,64 @@ body
     margin: 0 auto
     flex: 1
     .title
-      font-size: 30px
+      font-size: 40px
       font-family: "Oswald", sans-serif
-      margin-bottom: 40px
+      margin-bottom: 20px
       text-align: center
+      line-height: 1.2
   & > .footer
-    padding: 30px
+    padding: 4px 20px 20px 20px
     text-align: center
 
 .coffee-setup
-  margin: 0 auto 25px auto
-  text-align: center
-
-  & > .description
-    font-size: 15px
-    margin-bottom: 30px
+  margin: 0 auto 15px auto
 
   & > .form
-    display: inline-flex
-    align-items: flex-end
     margin-bottom: 20px
-    input
-      background: transparent
-      font-family: "Oswald", sans-serif
-      border: 0
-      border-bottom: 2px solid #fff
-      outline: none
-      padding: 4px 35px 4px 10px
-      color: #fbff7a
-      font-size: 36px
-      width: 60px
-      text-align: right
+    .filed
+      padding: 8px 0
+      display: flex
+      align-items: center
+    label
+      font-size: 18px
+      color: rgba($COLOR_WHITE, 0.9)
+      width: 75px
+      margin: 0 8px -2px 0
     .unit
       font-size: 24px
+      color: rgba($COLOR_WHITE, 0.7)
       position: relative
-      bottom: 20px
-      right: 28px
+      left: -18px
+      bottom: -7px
 
   & > .button
-    padding: 18px
-    width: 180px
-    margin: 30px auto 0 auto
-    font-size: 20px
+    box-sizing: border-box
+    padding: 15px 18px
+    width: 100%
+    margin: 35px auto 0 auto
+    font-size: 28px
     border: 2px solid #fff
+    text-align: center
+    font-family: "Oswald", sans-serif
+
+.bm-form-control
+  appearance: none
+  background: transparent
+  color: $COLOR_PRIMARY
+  font-family: "Oswald", sans-serif
+  border: 0
+  outline: none
+  padding: 6px
+  font-size: 34px
+  border-radius: 0
+  border-bottom: 2px solid #fff
 
 .bm-brewing-coffee-steps
   display: flex
   justify-content: space-between
   align-items: center
+  max-width: 500px
+  margin: 0 auto
   & > .step
     flex: 1
     text-align: center
@@ -302,14 +313,15 @@ body
 
 .bm-brewing-coffee-now
   margin: 0 auto
-  max-width: 280px
+  max-width: 400px
+  min-width: 280px
   text-align: center
   display: flex
   flex-direction: column
   justify-content: center
   text-align: center
   & > .weight
-    font-size: 100px
+    font-size: 92px
     margin-bottom: 20px
     font-family: $FONT_FAMILY_BASE
     font-weight: 300
@@ -326,14 +338,16 @@ body
     font-size: 60px
     font-family: $FONT_FAMILY_BASE
     color: $COLOR_PRIMARY
+    font-weight: 300
     .text
       font-weight: 200
       margin-right: 12px
+      opacity: 0.9
   & > .action
     display: flex
     justify-content: center
     align-items: center
-    margin-top: 15px
+    margin-top: 20px
     .button
       width: 40px
       height: 40px
