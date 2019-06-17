@@ -8,8 +8,13 @@ export default {
       setIntervalPointer: null,
       status: 'initialized' // "initialized", "running", "paused"
     },
-    brewData: {
-      method46: {
+    brewData: [
+      {
+        brewName: {
+          long: '4:6 Coffee Method',
+          short: '4:6 Method'
+        },
+        temperature: '83-93℃',
         steps: [
           {
             stepNumber: 1,
@@ -45,56 +50,58 @@ export default {
             stepNumber: 6,
             memo: '',
             time: 3 * 60 + 30,
-            waterPerBean: -1,
+            waterPerBean: 15,
             lastStepFlg: true
           }
         ]
-        // steps: [
-        //   {
-        //     stepNumber: 1,
-        //     memo: '',
-        //     time: 0,
-        //     waterPerBean: 2.5
-        //   },
-        //   {
-        //     stepNumber: 2,
-        //     memo: '',
-        //     time: 3,
-        //     waterPerBean: 6
-        //   },
-        //   {
-        //     stepNumber: 3,
-        //     memo: '',
-        //     time: 6,
-        //     waterPerBean: 9
-        //   },
-        //   {
-        //     stepNumber: 4,
-        //     memo: '',
-        //     time: 9,
-        //     waterPerBean: 12
-        //   },
-        //   {
-        //     stepNumber: 5,
-        //     memo: '',
-        //     time: 12,
-        //     waterPerBean: 15
-        //   },
-        //   {
-        //     stepNumber: 6,
-        //     memo: '',
-        //     time: 15,
-        //     waterPerBean: 15,
-        //     lastStepFlg: true
-        //   }
-        // ]
+      },
+      {
+        brewName: {
+          long: 'Dummy Method',
+          short: 'Dummy'
+        },
+        temperature: '83-93℃',
+        steps: [
+          {
+            stepNumber: 1,
+            memo: '',
+            time: 0,
+            waterPerBean: 2.5
+          },
+          {
+            stepNumber: 2,
+            memo: '',
+            time: 3,
+            waterPerBean: 6
+          },
+          {
+            stepNumber: 3,
+            memo: '',
+            time: 6,
+            waterPerBean: 9
+          },
+          {
+            stepNumber: 4,
+            memo: '',
+            time: 9,
+            waterPerBean: 12
+          },
+          {
+            stepNumber: 5,
+            memo: '',
+            time: 12,
+            waterPerBean: 15,
+            lastStepFlg: true
+          }
+        ]
       }
-    }
+    ],
+    selectedBrewMethod: {}
   }),
+  created: function() {
+    this.selectedBrewMethod = this.brewData[0]
+  },
   computed: {
-    selectedBrewMethod: function() {
-      return this.brewData.method46
-    },
     isTimerRunning: function() {
       return this.timer.status === 'running'
     },
@@ -183,18 +190,32 @@ export default {
       <div class="bm-brewing-coffee-setup">
         <div class="body">
           <div>
-            <div class="title">BREWING<br>COFFEE STYLES</div>
+            <div class="title">BREWING
+              <br>COFFEE STYLES
+            </div>
             <div class="coffee-setup">
               <div class="form">
                 <div class="filed">
                   <label>豆の量</label>
-                  <input v-model="beanAmount" type="number" pattern="\d*" max="999" min="0" class="bm-form-control" data-format="$1 g">
+                  <input
+                    v-model="beanAmount"
+                    type="number"
+                    pattern="\d*"
+                    max="999"
+                    min="0"
+                    class="bm-form-control"
+                    data-format="$1 g"
+                  >
                   <div class="unit">g</div>
                 </div>
                 <div class="filed">
                   <label>淹れ方</label>
-                  <select name="brewing-type" class="bm-form-control">
-                    <option value="46method">4:6 Method</option>
+                  <select v-model="selectedBrewMethod" name="brewing-type" class="bm-form-control">
+                    <option
+                      v-for="brew in brewData"
+                      v-bind:key="brew.brewName.short"
+                      v-bind:value="brew"
+                    >{{ brew.brewName.short}}</option>
                   </select>
                 </div>
               </div>
@@ -222,14 +243,15 @@ export default {
       <div class="bm-brewing-coffee">
         <div class="header">
           <div class="title">
-            <div class="name">4:6 Coffee Method</div>
+            <div class="name">{{ selectedBrewMethod.brewName.long }}</div>
             <div class="options">
               <div class="option weight">
                 <i class="mdi mdi-scale"></i>
                 {{beanAmount}}g
               </div>
               <div class="option temperature">
-                <i class="mdi mdi-kettle"></i> 83-93℃
+                <i class="mdi mdi-kettle"></i>
+                {{ selectedBrewMethod.temperature }}
               </div>
             </div>
           </div>
@@ -283,7 +305,7 @@ export default {
           </div>
           <div class="bm-brewing-coffee-steps">
             <div
-              v-for="step in brewData.method46.steps"
+              v-for="step in selectedBrewMethod.steps"
               :key="step.stepNumber"
               :class="{ active: step.stepNumber == stepNumber }"
               class="step"
@@ -291,7 +313,9 @@ export default {
               <div class="icon">
                 <i class="mdi mdi-water"></i>
               </div>
-              <div class="time">{{ step.time }}s</div>
+              <div
+                class="time"
+              >{{ step.time >= 60 ? (step.time - step.time % 60) / 60 + "m" : "" }}{{ step.time % 60 }}s</div>
               <div
                 class="weight"
               >{{ step.lastStepFlg ? "END" : beanAmount * step.waterPerBean + "ml" }}</div>
