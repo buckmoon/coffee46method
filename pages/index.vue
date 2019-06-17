@@ -98,9 +98,6 @@ export default {
     ],
     selectedBrewMethod: {}
   }),
-  created: function() {
-    this.selectedBrewMethod = this.brewData[0]
-  },
   computed: {
     isTimerRunning: function() {
       return this.timer.status === 'running'
@@ -166,6 +163,9 @@ export default {
       return lastStep.waterPerBean * this.beanAmount
     }
   },
+  created: function() {
+    this.selectedBrewMethod = this.brewData[0]
+  },
   methods: {
     startTimer: function() {
       const self = this
@@ -218,8 +218,8 @@ export default {
                   <select v-model="selectedBrewMethod" name="brewing-type" class="bm-form-control">
                     <option
                       v-for="brew in brewData"
-                      v-bind:key="brew.brewName.short"
-                      v-bind:value="brew"
+                      :key="brew.brewName.short"
+                      :value="brew"
                     >{{ brew.brewName.short}}</option>
                   </select>
                 </div>
