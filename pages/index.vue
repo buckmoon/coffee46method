@@ -159,6 +159,11 @@ export default {
     },
     selectedSteps: function() {
       return this.selectedBrewMethod.steps
+    },
+    waterAmountNeeded: function() {
+      const steps = this.selectedBrewMethod.steps
+      const lastStep = steps[steps.length - 1]
+      return lastStep.waterPerBean * this.beanAmount
     }
   },
   methods: {
@@ -311,7 +316,7 @@ export default {
               class="step"
             >
               <div class="icon">
-                <i class="mdi mdi-water"></i>
+                <i class="mdi" :class="step.lastStepFlg ? 'mdi-coffee' : 'mdi-water'"></i>
               </div>
               <div
                 class="time"
