@@ -185,7 +185,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div id="root">
     <template v-if="showingPage=='Setup'">
       <div class="bm-brewing-coffee-setup">
         <div class="body">
