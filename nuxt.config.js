@@ -25,14 +25,14 @@ export default {
       { name: 'application-name', content: '4:6 Calc' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: 'https://46coffee.buckmoon.io/' },
+      { property: 'og:url', content: 'https://coffee.buckmoon.io/' },
       { property: 'og:title', content: 'BREWING COFFEE STYLES' },
       {
         property: 'og:description',
         content:
           '様々なコーヒーの抽出方法の注水量・時間を測ることができるタイマーです。バリスタ世界チャンピオン・粕谷哲さんの考案したコーヒーの抽出方法 4:6 method を参考に作成しています。'
       },
-      { property: 'og:image', content: 'https://46coffee.buckmoon.io/fb.png' },
+      { property: 'og:image', content: 'https://coffee.buckmoon.io/fb.png' },
       { name: 'msapplication-TileColor', content: '#000000' },
       {
         name: 'msapplication-TileImage',
@@ -45,14 +45,16 @@ export default {
       {
         rel: 'alternate',
         hreflang: 'ja',
-        href: 'https://46coffee.buckmoon.io/'
+        href: 'https://coffee.buckmoon.io/'
       },
       {
-        href: 'https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600&display=swap',
+        href:
+          'https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600&display=swap',
         rel: 'stylesheet'
       },
       {
-        href: 'https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css',
+        href:
+          'https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css',
         rel: 'stylesheet'
       },
       {
@@ -136,9 +138,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    { src: '~/assets/css/main.sass', lang: 'sass' }
-  ],
+  css: [{ src: '~/assets/css/main.sass', lang: 'sass' }],
 
   /*
    ** Plugins to load before mounting the App
@@ -148,10 +148,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
 
   // styleResources: {
   //   sass: [
