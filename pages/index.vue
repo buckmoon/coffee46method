@@ -166,6 +166,9 @@ export default {
   created: function() {
     this.selectedBrewMethod = this.brewData[0]
   },
+  mounted: function() {
+    // this.$ga.page('/')
+  },
   methods: {
     startTimer: function() {
       const self = this
