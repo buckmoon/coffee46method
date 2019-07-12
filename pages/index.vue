@@ -57,6 +57,46 @@ export default {
       },
       {
         brewName: {
+          long: 'BLUE BOTTLE Pour Over',
+          short: 'BLUE BOTTLE'
+        },
+        temperature: 'X℃',
+        steps: [
+          {
+            stepNumber: 1,
+            memo: '',
+            time: 0,
+            waterPerBean: 2
+          },
+          {
+            stepNumber: 2,
+            memo: '',
+            time: 45,
+            waterPerBean: 5
+          },
+          {
+            stepNumber: 3,
+            memo: '',
+            time: 105,
+            waterPerBean: 8.422
+          },
+          {
+            stepNumber: 4,
+            memo: '',
+            time: 130,
+            waterPerBean: 11.7,
+          },
+          {
+            stepNumber: 5,
+            memo: '',
+            time: 150,
+            waterPerBean: 11.7,
+            lastStepFlg: true
+          }
+        ]
+      },
+      {
+        brewName: {
           long: 'Dummy Method',
           short: 'Dummy'
         },
@@ -326,7 +366,7 @@ export default {
               >{{ step.time >= 60 ? (step.time - step.time % 60) / 60 + "m" : "" }}{{ step.time % 60 }}s</div>
               <div
                 class="weight"
-              >{{ step.lastStepFlg ? "END" : beanAmount * step.waterPerBean + "ml" }}</div>
+              >{{ step.lastStepFlg ? "END" : Math.round(beanAmount * step.waterPerBean) + "ml" }}</div>
             </div>
           </div>
         </div>
