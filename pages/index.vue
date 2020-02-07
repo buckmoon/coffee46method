@@ -1,5 +1,9 @@
 <script>
+import FooterStep from '../components/parts/FooterStep.vue'
 export default {
+  components: {
+    FooterStep
+  },
   data: () => ({
     showingPage: 'Setup',
     beanAmount: 20,
@@ -50,6 +54,40 @@ export default {
             stepNumber: 6,
             memo: '',
             time: 3 * 60 + 30,
+            waterPerBean: 15,
+            lastStepFlg: true
+          }
+        ]
+      },
+      {
+        brewName: {
+          long: '井崎英典氏の世界一美味しいコーヒーの淹れ方',
+          short: 'Izaki Hidenori'
+        },
+        temperature: 'X℃',
+        steps: [
+          {
+            stepNumber: 1,
+            memo: 'フィルターにもお湯をかけます',
+            time: 0,
+            waterPerBean: 3
+          },
+          {
+            stepNumber: 2,
+            memo: '',
+            time: 60,
+            waterPerBean: 6
+          },
+          {
+            stepNumber: 3,
+            memo: '',
+            time: 120,
+            waterPerBean: 15
+          },
+          {
+            stepNumber: 4,
+            memo: '',
+            time: 4 * 60,
             waterPerBean: 15,
             lastStepFlg: true
           }
@@ -352,22 +390,13 @@ export default {
             </template>
           </div>
           <div class="bm-brewing-coffee-steps">
-            <div
+            <footer-step
               v-for="step in selectedBrewMethod.steps"
               :key="step.stepNumber"
               :class="{ active: step.stepNumber == stepNumber }"
-              class="step"
-            >
-              <div class="icon">
-                <i class="mdi" :class="step.lastStepFlg ? 'mdi-coffee' : 'mdi-water'"></i>
-              </div>
-              <div
-                class="time"
-              >{{ step.time >= 60 ? (step.time - step.time % 60) / 60 + "m" : "" }}{{ step.time % 60 }}s</div>
-              <div
-                class="weight"
-              >{{ step.lastStepFlg ? "END" : Math.round(beanAmount * step.waterPerBean) + "ml" }}</div>
-            </div>
+              :step="step"
+              :beanAmount="beanAmount"
+            ></footer-step>
           </div>
         </div>
       </div>
