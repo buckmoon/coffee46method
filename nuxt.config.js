@@ -1,187 +1,98 @@
-import pkg from './package'
+const config = {
+  title: 'BREWING COFFEE STYLES',
+  short_name: '4:6 Calc',
+  description: [
+    '様々なコーヒーの抽出方法の注水量・時間を測ることができるタイマーです。',
+    'バリスタ世界チャンピオン・粕谷哲さんの考案したコーヒーの抽出方法 4:6 method を参考に作成しています。',
+  ].join(''),
+}
 
 export default {
-  mode: 'spa',
+  // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
+  ssr: false,
+
+  // Target (https://go.nuxtjs.dev/config-target)
+  target: 'static',
+
+  server: {
+    host: '0.0.0.0',
+  },
+
+  pwa: {
+    manifest: {
+      name: config.title,
+      short_name: config.short_name,
+      lang: 'ja',
+    },
+    meta: {
+      appleStatusBarStyle: 'black-translucent',
+      name: config.title,
+      author: 'Buckmoon, Inc.',
+      description: config.description,
+      theme_color: '#000000',
+      ogType: 'website',
+      ogDescription: config.description,
+      ogHost: 'https://coffee.buckmoon.io',
+      ogImage: '/fb.png',
+      nativeUI: true,
+    },
+  },
 
   /*
    ** Headers of the page
    */
   head: {
-    title: 'BREWING COFFEE STYLES',
-    meta: [
-      { charset: 'utf-8' },
-      {
-        name: 'viewport',
-        content:
-          'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-      },
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          '様々なコーヒーの抽出方法の注水量・時間を測ることができるタイマーです。バリスタ世界チャンピオン・粕谷哲さんの考案したコーヒーの抽出方法 4:6 method を参考に作成しています。'
-      },
-      { name: 'apple-mobile-web-app-title', content: '4:6 Calc' },
-      { name: 'application-name', content: '4:6 Calc' },
-      { name: 'apple-mobile-web-app-capable', content: 'yes' },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: 'https://coffee.buckmoon.io/' },
-      { property: 'og:title', content: 'BREWING COFFEE STYLES' },
-      {
-        property: 'og:description',
-        content:
-          '様々なコーヒーの抽出方法の注水量・時間を測ることができるタイマーです。バリスタ世界チャンピオン・粕谷哲さんの考案したコーヒーの抽出方法 4:6 method を参考に作成しています。'
-      },
-      { property: 'og:image', content: 'https://coffee.buckmoon.io/fb.png' },
-      { name: 'msapplication-TileColor', content: '#000000' },
-      {
-        name: 'msapplication-TileImage',
-        content: 'favicon/ms-icon-144x144.png'
-      },
-      { name: 'theme-color', content: '#000000' }
-    ],
+    title: config.title,
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'alternate',
-        hreflang: 'ja',
-        href: 'https://coffee.buckmoon.io/'
-      },
       {
         href:
           'https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600&display=swap',
-        rel: 'stylesheet'
+        rel: 'stylesheet',
       },
       {
         href:
           'https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css',
-        rel: 'stylesheet'
+        rel: 'stylesheet',
       },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '57x57',
-        href: 'favicon/apple-icon-57x57.png'
-      },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '60x60',
-        href: 'favicon/apple-icon-60x60.png'
-      },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '72x72',
-        href: 'favicon/apple-icon-72x72.png'
-      },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '76x76',
-        href: 'favicon/apple-icon-76x76.png'
-      },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '114x114',
-        href: 'favicon/apple-icon-114x114.png'
-      },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '120x120',
-        href: 'favicon/apple-icon-120x120.png'
-      },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '144x144',
-        href: 'favicon/apple-icon-144x144.png'
-      },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '152x152',
-        href: 'favicon/apple-icon-152x152.png'
-      },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '180x180',
-        href: 'favicon/apple-icon-180x180.png'
-      },
-      {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '192x192',
-        href: 'favicon/android-icon-192x192.png'
-      },
-      {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '32x32',
-        href: 'favicon/favicon-32x32.png'
-      },
-      {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '96x96',
-        href: 'favicon/favicon-96x96.png'
-      },
-      {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '16x16',
-        href: 'favicon/favicon-16x16.png'
-      },
-      { rel: 'manifest', href: 'favicon/manifest.json' }
-    ]
+    ],
   },
 
-  /*
-   ** Customize the progress-bar color
-   */
-  loading: { color: '#fff' },
+  // Global CSS (https://go.nuxtjs.dev/config-css)
+  css: ['~/assets/css/main'],
 
-  /*
-   ** Global CSS
-   */
-  css: [{ src: '~/assets/css/main.sass', lang: 'sass' }],
+  // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
+  plugins: [],
 
-  /*
-   ** Plugins to load before mounting the App
-   */
-  plugins: [{ src: '~plugins/ga.js', ssr: false }],
+  // Auto import components (https://go.nuxtjs.dev/config-components)
+  components: true,
 
-  /*
-   ** Nuxt.js modules
-   */
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
+  // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
+  buildModules: [
+    // https://go.nuxtjs.dev/eslint
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/google-analytics',
+  ],
 
-  // styleResources: {
-  //   sass: [
-  //     '~/assets/css/main.sass'
-  //   ]
-  // },
-  /*
-   ** Axios module configuration
-   */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+  // Modules (https://go.nuxtjs.dev/config-modules)
+  modules: [
+    // https://go.nuxtjs.dev/axios
+    '@nuxtjs/axios',
+    // https://go.nuxtjs.dev/pwa
+    '@nuxtjs/pwa',
+  ],
+
+  // Axios module configuration (https://go.nuxtjs.dev/config-axios)
+  axios: {},
+
+  // Build Configuration (https://go.nuxtjs.dev/config-build)
+  build: {},
+
+  // Google Analytics (https://google-analytics.nuxtjs.org)
+  googleAnalytics: {
+    id: 'UA-93506588-6',
   },
 
-  /*
-   ** Build configuration
-   */
-  build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {
-      // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
-  },
   generate: {
-    dir: 'docs'
-  }
+    dir: 'docs',
+  },
 }
