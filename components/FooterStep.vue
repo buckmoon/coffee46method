@@ -1,7 +1,8 @@
 <template>
   <div class="step">
     <div class="icon">
-      <i class="mdi" :class="step.lastStepFlg ? 'mdi-coffee' : 'mdi-water'"></i>
+      <CoffeeIcon v-if="step.lastStepFlg" />
+      <WaterIcon v-else />
     </div>
     <div class="time">
       {{ step.time >= 60 ? (step.time - (step.time % 60)) / 60 + 'm' : ''
@@ -17,7 +18,14 @@
   </div>
 </template>
 <script>
+import CoffeeIcon from 'vue-material-design-icons/Coffee'
+import WaterIcon from 'vue-material-design-icons/Water'
+
 export default {
+  components: {
+    CoffeeIcon,
+    WaterIcon,
+  },
   props: {
     step: {
       type: Object,

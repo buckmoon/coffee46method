@@ -61,17 +61,17 @@
           <div class="name">{{ selectedBrewMethod.brewName.long }}</div>
           <div class="options">
             <div class="option weight">
-              <i class="mdi mdi-scale"></i>
+              <ScaleIcon />
               {{ beanAmount }}g
             </div>
             <div class="option temperature">
-              <i class="mdi mdi-kettle"></i>
+              <KettleIcon />
               {{ selectedBrewMethod.temperature }}
             </div>
           </div>
         </div>
         <div class="action" @click="resetTimer">
-          <i class="mdi mdi-close"></i>
+          <CloseIcon />
         </div>
       </div>
       <div class="body bm-brewing-coffee-now">
@@ -97,10 +97,10 @@
             class="button start"
             @click="startTimer"
           >
-            <i class="mdi mdi-play"></i>
+            <PlayIcon />
           </div>
           <div v-if="isTimerRunning" class="button" @click="pauseTimer">
-            <i class="mdi mdi-pause"></i>
+            <PauseIcon />
           </div>
         </div>
       </div>
@@ -133,10 +133,21 @@
 </template>
 
 <script>
-import FooterStep from '~/components/FooterStep.vue'
+import ScaleIcon from 'vue-material-design-icons/Scale'
+import KettleIcon from 'vue-material-design-icons/Kettle'
+import CloseIcon from 'vue-material-design-icons/Close'
+import PlayIcon from 'vue-material-design-icons/Play'
+import PauseIcon from 'vue-material-design-icons/Pause'
+import FooterStep from '~/components/FooterStep'
+
 export default {
   components: {
     FooterStep,
+    ScaleIcon,
+    KettleIcon,
+    CloseIcon,
+    PlayIcon,
+    PauseIcon
   },
   data: () => ({
     showingPage: 'Setup',

@@ -49,11 +49,6 @@ export default {
           'https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600&display=swap',
         rel: 'stylesheet',
       },
-      {
-        href:
-          'https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css',
-        rel: 'stylesheet',
-      },
     ],
   },
 
