@@ -147,7 +147,7 @@ export default {
     KettleIcon,
     CloseIcon,
     PlayIcon,
-    PauseIcon
+    PauseIcon,
   },
   data: () => ({
     showingPage: 'Setup',
