@@ -83,3 +83,4 @@ typings/
 
 # Service worker
 sw.*
+!docs/sw.*
