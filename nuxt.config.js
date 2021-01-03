@@ -43,13 +43,6 @@ export default {
    */
   head: {
     title: config.title,
-    link: [
-      {
-        href:
-          'https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600&display=swap',
-        rel: 'stylesheet',
-      },
-    ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -66,6 +59,7 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxtjs/google-analytics',
+    '@nuxtjs/google-fonts',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -85,6 +79,15 @@ export default {
   // Google Analytics (https://google-analytics.nuxtjs.org)
   googleAnalytics: {
     id: 'UA-93506588-6',
+  },
+
+  googleFonts: {
+    display: 'swap',
+    download: true,
+    inject: true,
+    families: {
+      Oswald: [200, 300, 400, 500, 600],
+    },
   },
 
   generate: {
