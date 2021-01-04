@@ -1,6 +1,7 @@
 {
   "name": "BREWING COFFEE STYLES",
   "short_name": "4:6 Calc",
+  "description": "My flawless Nuxt.js project",
   "icons": [
     {
       "src": "/_nuxt/icons/icon_64x64.2c22f0.png",
