@@ -278,46 +278,6 @@ export default {
           },
         ],
       },
-      {
-        brewName: {
-          long: 'Dummy Method',
-          short: 'Dummy',
-        },
-        temperature: '83-93℃',
-        steps: [
-          {
-            stepNumber: 1,
-            memo: '',
-            time: 0,
-            waterPerBean: 2.5,
-          },
-          {
-            stepNumber: 2,
-            memo: '',
-            time: 3,
-            waterPerBean: 6,
-          },
-          {
-            stepNumber: 3,
-            memo: '',
-            time: 6,
-            waterPerBean: 9,
-          },
-          {
-            stepNumber: 4,
-            memo: '',
-            time: 9,
-            waterPerBean: 12,
-          },
-          {
-            stepNumber: 5,
-            memo: '',
-            time: 12,
-            waterPerBean: 15,
-            lastStepFlg: true,
-          },
-        ],
-      },
     ],
     selectedBrewMethod: {},
   }),
