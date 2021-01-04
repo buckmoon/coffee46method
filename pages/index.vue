@@ -81,7 +81,6 @@
               <KettleIcon />
               {{ selectedBrewMethod.temperature }}
             </div>
-            <div>waterRatioDisplayMode {{ waterRatioDisplayMode }}</div>
           </div>
         </div>
         <div class="action" @click="resetTimer">
