@@ -12,7 +12,9 @@
       {{
         step.lastStepFlg
           ? 'END'
-          : Math.round(beanAmount * step.waterPerBean) + 'ml'
+          : waterRatioDisplayMode == 'total'
+            ? Math.round(beanAmount * step.waterPerBean) + 'ml'
+            : Math.round(beanAmount * step.waterPerBeanThisStep) + 'ml'
       }}
     </div>
   </div>
@@ -35,6 +37,10 @@ export default {
       type: Number,
       default: () => 0,
     },
+    waterRatioDisplayMode: {
+      type: String,
+       default: () => '',
+    }
   },
   methods: {
     zeroPadding(num, originalNum) {

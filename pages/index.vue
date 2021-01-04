@@ -6,34 +6,47 @@
           <div class="title">BREWING <br />COFFEE STYLES</div>
           <div class="coffee-setup">
             <div class="form">
-              <div class="filed">
-                <label>豆の量</label>
-                <input
-                  v-model="beanAmount"
-                  type="number"
-                  pattern="\d*"
-                  max="999"
-                  min="0"
-                  class="bm-form-control"
-                  data-format="$1 g"
-                />
-                <div class="unit">g</div>
-              </div>
-              <div class="filed">
-                <label>淹れ方</label>
-                <select
-                  v-model="selectedBrewMethod"
-                  name="brewing-type"
-                  class="bm-form-control"
-                >
-                  <option
-                    v-for="brew in brewData"
-                    :key="brew.brewName.short"
-                    :value="brew"
+              <div :class="$style.settingFiled">
+                <div :class="$style.settingFiledLabel">豆の量</div>
+                <div :class="$style.settingFiledInput">
+                  <div
+                    :class="$style.settingStepper"
+                    @click="subtractBeanAmount"
                   >
-                    {{ brew.brewName.short }}
-                  </option>
-                </select>
+                    -
+                  </div>
+                  <input
+                    v-model="beanAmount"
+                    type="number"
+                    pattern="\d*"
+                    max="999"
+                    min="0"
+                    :class="$style.settingFiledInputControl"
+                    data-format="$1 g"
+                  />
+                  <div :class="$style.settingUnit">g</div>
+                  <div :class="$style.settingStepper" @click="addBeanAmount">
+                    +
+                  </div>
+                </div>
+              </div>
+              <div :class="$style.settingFiled">
+                <div :class="$style.settingFiledLabel">淹れ方</div>
+                <div :class="$style.settingFiledInput">
+                  <select
+                    v-model="selectedBrewMethod"
+                    name="brewing-type"
+                    :class="$style.settingFiledInputControl"
+                  >
+                    <option
+                      v-for="brew in brewData"
+                      :key="brew.brewName.short"
+                      :value="brew"
+                    >
+                      {{ brew.brewName.short }}
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="button" @click="startTimer">START</div>
@@ -68,6 +81,7 @@
               <KettleIcon />
               {{ selectedBrewMethod.temperature }}
             </div>
+            <div>waterRatioDisplayMode {{ waterRatioDisplayMode }}</div>
           </div>
         </div>
         <div class="action" @click="resetTimer">
@@ -75,11 +89,48 @@
         </div>
       </div>
       <div class="body bm-brewing-coffee-now">
+        <div :class="$style.waterRatioDisplayModeTabs">
+          <div
+            :class="[
+              $style.waterRatioDisplayModeTab,
+              waterRatioDisplayMode == 'total' ? $style.current : null,
+            ]"
+            @click="waterRatioDisplayMode = 'total'"
+          >
+            累積
+          </div>
+          <div
+            :class="[
+              $style.waterRatioDisplayModeTab,
+              waterRatioDisplayMode == 'step' ? $style.current : null,
+            ]"
+            @click="waterRatioDisplayMode = 'step'"
+          >
+            注水量
+          </div>
+        </div>
         <div class="weight">
-          {{ beanAmount * stepNow.waterPerBean }}
+          {{
+            waterRatioDisplayMode == 'total'
+              ? beanAmount * stepNow.waterPerBean
+              : beanAmount * stepNow.waterPerBeanThisStep
+          }}
           <span class="unit">ml</span>
         </div>
-        <div v-if="shouldAlertNextStep" class="text">まで注水してください</div>
+        <div v-if="shouldAlertNextStep" class="text">
+          {{
+            waterRatioDisplayMode == 'total'
+              ? 'まで注水してください'
+              : 'を注水してください'
+          }}
+        </div>
+        <div v-if="shouldAlertNextStep" :class="$style.helpDescription">
+          {{
+            waterRatioDisplayMode == 'total'
+              ? 'このステップ：+' + beanAmount * stepNow.waterPerBeanThisStep + 'ml'
+              : '合計：' + beanAmount * stepNow.waterPerBean + 'ml'
+          }}
+        </div>
         <div v-if="!shouldAlertNextStep" class="text">
           ドリッパーを外してください
         </div>
@@ -125,6 +176,7 @@
             :class="{ active: step.stepNumber == stepNumber }"
             :step="step"
             :bean-amount="beanAmount"
+            :water-ratio-display-mode="waterRatioDisplayMode"
           ></footer-step>
         </div>
       </div>
@@ -152,6 +204,7 @@ export default {
   data: () => ({
     showingPage: 'Setup',
     beanAmount: 20,
+    waterRatioDisplayMode: 'total',
     timer: {
       value: 0,
       setIntervalPointer: null,
@@ -170,110 +223,42 @@ export default {
             memo: '',
             time: 0,
             waterPerBean: 2.5,
+            waterPerBeanThisStep: 2.5,
           },
           {
             stepNumber: 2,
             memo: '',
             time: 45,
             waterPerBean: 6,
+            waterPerBeanThisStep: 3.5,
           },
           {
             stepNumber: 3,
             memo: '',
             time: 1 * 60 + 30,
             waterPerBean: 9,
+            waterPerBeanThisStep: 3,
           },
           {
             stepNumber: 4,
             memo: '',
             time: 2 * 60 + 10,
             waterPerBean: 12,
+            waterPerBeanThisStep: 3,
           },
           {
             stepNumber: 5,
             memo: '',
             time: 2 * 60 + 45,
             waterPerBean: 15,
+            waterPerBeanThisStep: 3,
           },
           {
             stepNumber: 6,
             memo: '',
             time: 3 * 60 + 30,
             waterPerBean: 15,
-            lastStepFlg: true,
-          },
-        ],
-      },
-      {
-        brewName: {
-          long: '井崎英典氏の世界一美味しいコーヒーの淹れ方',
-          short: 'Izaki Hidenori',
-        },
-        temperature: 'X℃',
-        steps: [
-          {
-            stepNumber: 1,
-            memo: 'フィルターにもお湯をかけます',
-            time: 0,
-            waterPerBean: 3,
-          },
-          {
-            stepNumber: 2,
-            memo: '',
-            time: 60,
-            waterPerBean: 6,
-          },
-          {
-            stepNumber: 3,
-            memo: '',
-            time: 120,
-            waterPerBean: 15,
-          },
-          {
-            stepNumber: 4,
-            memo: '',
-            time: 4 * 60,
-            waterPerBean: 15,
-            lastStepFlg: true,
-          },
-        ],
-      },
-      {
-        brewName: {
-          long: 'BLUE BOTTLE Pour Over',
-          short: 'BLUE BOTTLE',
-        },
-        temperature: 'X℃',
-        steps: [
-          {
-            stepNumber: 1,
-            memo: '',
-            time: 0,
-            waterPerBean: 2,
-          },
-          {
-            stepNumber: 2,
-            memo: '',
-            time: 45,
-            waterPerBean: 5,
-          },
-          {
-            stepNumber: 3,
-            memo: '',
-            time: 105,
-            waterPerBean: 8.422,
-          },
-          {
-            stepNumber: 4,
-            memo: '',
-            time: 130,
-            waterPerBean: 11.7,
-          },
-          {
-            stepNumber: 5,
-            memo: '',
-            time: 150,
-            waterPerBean: 11.7,
+            waterPerBeanThisStep: 0,
             lastStepFlg: true,
           },
         ],
@@ -353,6 +338,12 @@ export default {
     // this.$ga.page('/')
   },
   methods: {
+    addBeanAmount() {
+      if (this.beanAmount < 999) this.beanAmount++
+    },
+    subtractBeanAmount() {
+      if (this.beanAmount > 1) this.beanAmount--
+    },
     startTimer() {
       this.showingPage = 'BrewingCoffee'
       this.timer.setIntervalPointer = setInterval(() => {
@@ -373,3 +364,62 @@ export default {
   },
 }
 </script>
+
+<style lang="sass" module>
+
+.settingFiled
+  padding: 8px 0
+  display: flex
+  align-items: center
+.settingFiledLabel
+  font-size: 18px
+  color: rgba(#fff, 0.9)
+  width: 75px
+  margin: 0 8px -2px 0
+.settingFiledInput
+  display: flex
+  align-items: center
+  border-bottom: 2px solid #fff
+  flex: 1
+.settingFiledInputControl
+  appearance: none
+  background: transparent
+  color: #ff0
+  font-family: "Oswald", sans-serif
+  border: 0
+  outline: none
+  padding: 6px
+  font-size: 34px
+  border-radius: 0
+  text-align: center
+  flex: 1
+.settingStepper
+  font-size: 20px
+  padding: 8px 12px
+  background-color: rgba(#fff, 0.1)
+.settingUnit
+  font-size: 24px
+  color: rgba(#fff, 0.7)
+  position: relative
+  left: -18px
+  bottom: -7px
+
+.waterRatioDisplayModeTabs
+  display: flex
+  border: 1px solid rgba(#fff, 0.4)
+  margin: 0 auto 30px auto
+  width: 180px
+.waterRatioDisplayModeTab
+  flex: 1
+  padding: 9px 6px
+  color: rgba(#fff, 0.7)
+  &.current
+    background-color: rgba(#fff, 0.2)
+    color: #fff
+  & + &
+    border-left: 1px solid rgba(#fff, 0.4)
+.helpDescription
+  font-size: 14px
+  opacity: 0.7
+  margin-top: 12px
+</style>
